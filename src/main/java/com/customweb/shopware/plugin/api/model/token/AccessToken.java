@@ -20,7 +20,6 @@ public class AccessToken {
 	public AccessToken(@JsonProperty("expire") Map<String, String> expiration, @JsonProperty("locale") Locale locale,
 			@JsonProperty("token") String token, @JsonProperty("userId") String userId) {
 		expiryDate = DateUtil.parseDate(expiration.get("date")).atZone(ZoneId.of(expiration.get("timezone")));
-		System.out.println(this.expiryDate);
 		this.locale = locale;
 		this.token = token;
 		this.userId = userId;

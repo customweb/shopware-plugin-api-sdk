@@ -12,7 +12,7 @@ public class ChangeLog {
 
 	private final long id;
 	private final ChangeLog.Locale locale;
-	private final String text;
+	private String text;
 
 	@JsonCreator
 	public ChangeLog(@JsonProperty("id") long id, @JsonProperty("locale") Locale locale, @JsonProperty("text") String text) {
@@ -30,8 +30,11 @@ public class ChangeLog {
 	}
 
 	public String getText() {
-		return "ein changelog von 20 Zeichen";
-		// return text;
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
 	}
 
 	public static class Locale {

@@ -6,6 +6,8 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 
+import com.customweb.shopware.plugin.api.exception.ShopwarePluginApiException;
+
 class MultiPartUtil {
 	private final String boundary;
 	private static final String LINE_FEED = "\r\n";
@@ -20,7 +22,7 @@ class MultiPartUtil {
 			outputStream = httpConn.getOutputStream();
 			writer = new PrintWriter(new OutputStreamWriter(outputStream, "UTF-8"), true);
 		} catch (IOException e) {
-			throw new IllegalStateException(e);
+			throw new ShopwarePluginApiException(e);
 		}
 
 	}

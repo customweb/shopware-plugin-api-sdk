@@ -1,7 +1,6 @@
 package com.customweb.shopware.plugin.api.model.version;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 
 import com.customweb.shopware.plugin.api.model.common.Status;
@@ -20,9 +19,9 @@ public class PluginVersion {
 	private final long id;
 	private final String name;
 	private final String remoteLink;
-	private final String version;
+	private String version;
 	private final Status status;
-	private final List<SoftwareVersion> compatibleSoftwareVersions;
+	private List<SoftwareVersion> compatibleSoftwareVersions;
 	private final List<ChangeLog> changeLogs;
 	private final LocalDateTime creationDate;
 	private final LocalDateTime lastChangeDate;
@@ -64,13 +63,11 @@ public class PluginVersion {
 	}
 
 	public String getRemoteLink() {
-		return "https://sbp-plugin-binaries.s3.eu-west-1.amazonaws.com/7788_1541080924_dfd7492db3158348fbee8cd9fefd6dda.zip";
-		// return remoteLink;
+		return remoteLink;
 	}
 
 	public String getVersion() {
-		return "1.0.1";
-		// return version;
+		return version;
 	}
 
 	public Status getStatus() {
@@ -78,10 +75,10 @@ public class PluginVersion {
 	}
 
 	public List<SoftwareVersion> getCompatibleSoftwareVersions() {
-		// return compatibleSoftwareVersions;
-		return Arrays.asList(new SoftwareVersion("5.3.3"));
+		return compatibleSoftwareVersions;
 	}
 
+	@JsonProperty("changelogs")
 	public List<ChangeLog> getChangeLogs() {
 		return changeLogs;
 	}
@@ -110,6 +107,14 @@ public class PluginVersion {
 
 	public boolean isLicenseCheckRequired() {
 		return licenseCheckRequired;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
+	public void setCompatibleSoftwareVersions(List<SoftwareVersion> compatibleSoftwareVersions) {
+		this.compatibleSoftwareVersions = compatibleSoftwareVersions;
 	}
 
 }

@@ -12,6 +12,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 import org.apache.commons.io.IOUtils;
 
+import com.customweb.shopware.plugin.api.exception.ShopwarePluginApiException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -31,9 +32,7 @@ class ShopwareHttpUtil {
 
 	static <T, U> U executeRequest(String url, T sourceData, Class<U> outputType, String token, String method) {
 		try (InputStream is = executeRequestInternal(buildUrl(url), method, sourceData, token)) {
-			String r = IOUtils.toString(is);
-			System.out.println(r);
-			return objectMapper.readValue(r, outputType);
+			return objectMapper.readValue(is, outputType);
 		} catch (IOException exc) {
 			exc.printStackTrace();
 			return null;
@@ -45,7 +44,7 @@ class ShopwareHttpUtil {
 		try {
 			conn = (HttpsURLConnection) buildUrl(url).openConnection();
 		} catch (IOException e) {
-			throw new IllegalStateException(e);
+			throw new ShopwarePluginApiException(e);
 		}
 
 		addRequestHeaders(conn, token, 0, "POST");
@@ -56,12 +55,9 @@ class ShopwareHttpUtil {
 			multiPart.addFilePart("file", fileContent);
 			multiPart.finish();
 			is = getHttpResponseInputStream(conn);
-			String r = IOUtils.toString(is);
-			System.out.println(r);
-			return objectMapper.readValue(r, outputType);
+			return objectMapper.readValue(is, outputType);
 		} catch (IOException exc) {
-			exc.printStackTrace();
-			return null;
+			throw new ShopwarePluginApiException(exc);
 		} finally {
 			if (is != null) {
 				try {
@@ -75,9 +71,7 @@ class ShopwareHttpUtil {
 
 	static <U> U executeRequest(String url, Class<U> outputType, String token) {
 		try (InputStream is = executeRequestInternal(buildUrl(url), "GET", null, token)) {
-			String r = IOUtils.toString(is);
-			System.out.println(r);
-			return objectMapper.readValue(r, outputType);
+			return objectMapper.readValue(is, outputType);
 		} catch (IOException exc) {
 			exc.printStackTrace();
 			return null;
@@ -85,11 +79,8 @@ class ShopwareHttpUtil {
 	}
 
 	static <U> U executeRequest(String url, TypeReference<U> outputType, String token) {
-		System.out.println(url);
 		try (InputStream is = executeRequestInternal(buildUrl(url), "GET", null, token)) {
-			String r = IOUtils.toString(is);
-			System.out.println(r);
-			return objectMapper.readValue(r, outputType);
+			return objectMapper.readValue(is, outputType);
 		} catch (IOException exc) {
 			exc.printStackTrace();
 			return null;
@@ -102,11 +93,10 @@ class ShopwareHttpUtil {
 
 		if (sourceData != null) {
 			try {
-				System.out.println("SENDING (" + httpMethod + ") " + objectMapper.writeValueAsString(sourceData));
 				data = objectMapper.writeValueAsString(sourceData).getBytes(StandardCharsets.UTF_8);
 				dataLength = data.length;
 			} catch (Exception exc) {
-				throw new RuntimeException(exc);
+				throw new ShopwarePluginApiException(exc);
 			}
 		}
 
@@ -114,7 +104,7 @@ class ShopwareHttpUtil {
 		try {
 			conn = (HttpsURLConnection) url.openConnection();
 		} catch (IOException e) {
-			throw new IllegalStateException(e);
+			throw new ShopwarePluginApiException(e);
 		}
 
 		addRequestHeaders(conn, token, dataLength, httpMethod);
@@ -139,7 +129,7 @@ class ShopwareHttpUtil {
 		try {
 			conn.setRequestMethod(requestMethod);
 		} catch (ProtocolException exc) {
-			throw new IllegalStateException(exc);
+			throw new ShopwarePluginApiException(exc);
 		}
 
 		if (token != null) {
@@ -155,7 +145,7 @@ class ShopwareHttpUtil {
 		try (final DataOutputStream wr = new DataOutputStream(conn.getOutputStream())) {
 			wr.write(data);
 		} catch (Exception e) {
-			throw new IllegalStateException(e);
+			throw new ShopwarePluginApiException(e);
 		}
 	}
 
@@ -165,11 +155,11 @@ class ShopwareHttpUtil {
 			if (code > 199 && code < 300) {
 				return conn.getInputStream();
 			} else {
-				System.out.println(IOUtils.toString(conn.getErrorStream()));
-				throw new IllegalStateException("response code was " + code);
+				throw new ShopwarePluginApiException(
+						"Response code was " + code + "; error text: " + IOUtils.toString(conn.getErrorStream()));
 			}
 		} catch (IOException e) {
-			throw new IllegalStateException("Cannot read response from connection.", e);
+			throw new ShopwarePluginApiException("Cannot read response from connection.", e);
 		}
 	}
 
@@ -177,7 +167,7 @@ class ShopwareHttpUtil {
 		try {
 			return new URL(url);
 		} catch (MalformedURLException e) {
-			throw new IllegalArgumentException(e);
+			throw new ShopwarePluginApiException(e);
 		}
 	}
 }
