@@ -1,0 +1,36 @@
+apply plugin: 'eclipse'
+apply plugin: 'java'
+apply plugin: 'maven'
+
+defaultTasks 'clean', 'build'
+
+group = 'com.customweb'
+version = '1.0.1'
+
+repositories {
+    jcenter()
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+install {
+    repositories.mavenInstaller {
+        pom.artifactId = 'shopware-plugin-api-sdk'
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java']
+        }
+    }
+}
+
+dependencies {
+//    compile 'com.squareup.okhttp:okhttp:2.7.5'
+//    compile 'com.squareup.okhttp:logging-interceptor:2.7.5'
+//    compile 'com.google.code.gson:gson:2.6.2'
+    testCompile 'junit:junit:4.12'
+}
