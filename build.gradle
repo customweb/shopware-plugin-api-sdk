@@ -1,22 +1,29 @@
 apply plugin: 'eclipse'
 apply plugin: 'java'
-apply plugin: 'maven'
 
 defaultTasks 'clean', 'build'
 
-group = 'com.customweb'
-version = '1.0.1'
-
-repositories {
-    jcenter()
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.9.0"
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
-install {
-    repositories.mavenInstaller {
-        pom.artifactId = 'shopware-plugin-api-sdk'
+allprojects {
+    group = 'com.customweb'
+    version = '1.0.0'
+    repositories {
+        jcenter()
+        mavenCentral()
     }
 }
 
@@ -35,4 +42,8 @@ dependencies {
 	compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.8'
 	compile 'commons-io:commons-io:2.4'
     testCompile 'junit:junit:4.12'
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }
