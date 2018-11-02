@@ -1,5 +1,8 @@
 package com.customweb.shopware.plugin.api.exception;
 
+/**
+ * Exception is thrown when there is an error while processing Shopware plugins.
+ */
 public class ShopwarePluginApiException extends RuntimeException {
 
 	private static final long serialVersionUID = 6017966158891141431L;

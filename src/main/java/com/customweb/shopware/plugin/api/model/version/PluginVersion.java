@@ -12,6 +12,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Represents a plugin version. This entity is used for both receiving and
+ * sending data, therefore some of the properties are not immutable as they need
+ * to be updated and sent after the initial upload.
+ */
 @JsonInclude(Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PluginVersion {

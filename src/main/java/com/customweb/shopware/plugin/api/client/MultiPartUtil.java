@@ -8,6 +8,9 @@ import java.net.HttpURLConnection;
 
 import com.customweb.shopware.plugin.api.exception.ShopwarePluginApiException;
 
+/**
+ * Utility that heps with uploading multipart content.
+ */
 class MultiPartUtil {
 	private final String boundary;
 	private static final String LINE_FEED = "\r\n";

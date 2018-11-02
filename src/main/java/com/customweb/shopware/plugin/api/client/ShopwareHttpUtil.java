@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 /**
- * @author ivantodorovic
+ * Utility that helps with sending requests of HTTP connnections.
  */
 class ShopwareHttpUtil {
 

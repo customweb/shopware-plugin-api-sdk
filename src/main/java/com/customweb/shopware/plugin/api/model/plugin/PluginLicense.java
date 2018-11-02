@@ -3,6 +3,9 @@ package com.customweb.shopware.plugin.api.model.plugin;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Plugin license information.
+ */
 public final class PluginLicense {
 
 	private final long id;

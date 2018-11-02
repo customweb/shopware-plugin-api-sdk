@@ -3,6 +3,9 @@ package com.customweb.shopware.plugin.api.model.common;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * A generic status field that has a name and description.
+ */
 public final class Status {
 
 	private final long id;

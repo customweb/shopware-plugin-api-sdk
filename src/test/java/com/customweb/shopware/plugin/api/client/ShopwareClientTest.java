@@ -3,40 +3,38 @@ package com.customweb.shopware.plugin.api.client;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.customweb.shopware.plugin.api.model.cred.ShopwareCredentials;
-import com.customweb.shopware.plugin.api.model.plugin.PluginInformation;
 import com.customweb.shopware.plugin.api.model.version.PluginVersion;
 import com.customweb.shopware.plugin.api.model.version.SoftwareVersion;
 
 public class ShopwareClientTest {
 
+	private final static long TEST_PLUGIN_ID = 7788;
+
 	@Test
-	@Ignore
-	public void loginTest() {
+	public void listPluginsTest() {
 		ShopwarePluginApiClient client = new ShopwarePluginApiClient(readCredentials());
-		List<PluginInformation> infoList = client.listPlugins(false, 50, 0);
-		System.out.println(infoList.size());
-		// client.pluginDetails(5304);
+		client.listPlugins(false, 50, 0);
 	}
 
 	@Test
-	public void uploadFile() {
+	public void uploadPluginVersionTest() {
 		ShopwarePluginApiClient client = new ShopwarePluginApiClient(readCredentials());
-		PluginVersion v = client.uploadPluginVersion(7788, readFile());
+		PluginVersion v = client.uploadPluginVersion(TEST_PLUGIN_ID, readFile());
 
 		v.setVersion("1.1.1");
 		v.setCompatibleSoftwareVersions(Arrays.asList(new SoftwareVersion("5.3.4"), new SoftwareVersion("5.3.5")));
 
 		v.getChangeLogs().forEach(c -> c.setText("This is a change description"));
 
-		client.updatePluginVersion(7788, v);
+		client.updatePluginVersion(TEST_PLUGIN_ID, v);
+
+		client.pluginVersionStatus(TEST_PLUGIN_ID, v.getId());
 	}
 
 	private byte[] readFile() {
@@ -60,6 +58,7 @@ public class ShopwareClientTest {
 			Properties properties = new Properties();
 			try {
 				properties.load(is);
+				is.close();
 			} catch (IOException e) {
 				throw new IllegalStateException("Cannot load credentials.", e);
 			}

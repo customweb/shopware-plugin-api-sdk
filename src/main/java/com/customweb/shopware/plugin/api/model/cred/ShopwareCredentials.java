@@ -2,6 +2,9 @@ package com.customweb.shopware.plugin.api.model.cred;
 
 import java.util.Objects;
 
+/**
+ * Shopware credentials.
+ */
 public class ShopwareCredentials {
 
 	private final String username;

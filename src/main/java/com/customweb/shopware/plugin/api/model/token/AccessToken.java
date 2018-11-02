@@ -9,6 +9,9 @@ import com.customweb.shopware.plugin.api.util.DateUtil;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Access token received from the Shopware system.
+ */
 public class AccessToken {
 
 	private final Locale locale;

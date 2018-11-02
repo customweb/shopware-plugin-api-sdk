@@ -1,5 +1,8 @@
 package com.customweb.shopware.plugin.api.model.token;
 
+/**
+ * Request for the access token for Shopware system.
+ */
 public class AccessTokenRequest {
 
 	private final String shopwareId;

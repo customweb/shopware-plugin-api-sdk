@@ -67,7 +67,7 @@ public class ShopwarePluginApiClient {
 	 *            plugin id
 	 * @return plugin detais
 	 */
-	public PluginInformation pluginDetails(int pluginId) {
+	public PluginInformation pluginDetails(long pluginId) {
 		return executeRequest(ShopwareEndpoints.PLUGINS + "/" + pluginId, null, PluginInformation.class);
 	}
 
@@ -80,7 +80,7 @@ public class ShopwarePluginApiClient {
 	 *            the ZIP file contents
 	 * @return the new plugin version information
 	 */
-	public PluginVersion uploadPluginVersion(int pluginId, byte[] fileContent) {
+	public PluginVersion uploadPluginVersion(long pluginId, byte[] fileContent) {
 		String url = ShopwareEndpoints.PLUGINS + "/" + pluginId + ShopwareEndpoints.BINARIES;
 		List<PluginVersion> versions = ShopwareHttpUtil.executeMultipartRequest(url, new TypeReference<List<PluginVersion>>() {
 		}, fileContent, obtainToken());
@@ -99,6 +99,20 @@ public class ShopwarePluginApiClient {
 	public PluginVersion updatePluginVersion(long pluginId, PluginVersion version) {
 		String url = ShopwareEndpoints.PLUGINS + "/" + pluginId + ShopwareEndpoints.BINARIES + "/" + version.getId();
 		return executePutRequest(url, version, PluginVersion.class);
+	}
+
+	/**
+	 * Retrieve plugin version information.
+	 * 
+	 * @param pluginId
+	 *            plugin id
+	 * @param versionId
+	 *            plugin version id
+	 * @return plugin version information.
+	 */
+	public PluginVersion pluginVersionStatus(long pluginId, long versionId) {
+		String url = ShopwareEndpoints.PLUGINS + "/" + pluginId + ShopwareEndpoints.BINARIES + "/" + versionId;
+		return executeRequest(url, null, PluginVersion.class);
 	}
 
 	/**
