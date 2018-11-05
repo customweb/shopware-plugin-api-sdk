@@ -1,5 +1,7 @@
 apply plugin: 'eclipse'
 apply plugin: 'java'
+apply plugin: 'signing'
+apply plugin: 'io.codearte.nexus-staging'
 
 defaultTasks 'clean', 'build'
 
@@ -20,7 +22,7 @@ targetCompatibility = JavaVersion.VERSION_1_8
 
 allprojects {
     group = 'com.customweb'
-    version = '1.0.0'
+    version = '1.0.1'
     repositories {
         jcenter()
         mavenCentral()
@@ -44,6 +46,89 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+tasks.withType(Javadoc) {
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('charSet', 'UTF-8')
 }
+
+def isReleaseBuild() {
+    def env = System.getenv()
+    String tag = env['TRAVIS_TAG']
+    if(tag == null || tag.isEmpty()){
+        println 'This is not tagged build'
+        return false
+    }
+    String pullRequest = env['TRAVIS_PULL_REQUEST']
+    if(pullRequest != null && !pullRequest.equalsIgnoreCase('false')){
+        println 'This is pull request'
+        return false
+    }
+    return true
+}
+
+afterEvaluate { project ->
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+                pom.groupId = project.group
+                pom.artifactId = 'shopware-plugin-api-sdk'
+                pom.version = project.version
+
+                def env = System.getenv();
+                String nexusUsername = env['OSSRH_JIRA_USERNAME']
+                String nexusPassword = env['OSSRH_JIRA_PASSWORD']
+
+                repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
+                    authentication(userName: nexusUsername, password: nexusPassword)
+                }
+                snapshotRepository(url: 'https://oss.sonatype.org/content/repositories/snapshots/') {
+                    authentication(userName: nexusUsername, password: nexusPassword)
+                }
+
+                pom.project {
+                    name 'shopware-plugin-api-sdk'
+                    description 'The SDK for managing plugins on Shopware.'
+                    url 'https://customweb.com'
+                    packaging 'jar'
+
+                    organization {
+                        name 'customweb GmbH'
+                        url 'https://www.customweb.com'
+                    }
+
+                    scm {
+                        url 'https://github.com/customweb/shopware-plugin-api-sdkk'
+                        connection 'scm:git:git@github.com:customweb/shopware-plugin-api-sdk.git'
+                        developerConnection 'scm:git:git@github.com:customweb/shopware-plugin-api-sdk.git'
+                    }
+
+                    licenses {
+                        license {
+                            name 'Apache-2.0'
+                            url 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+                            distribution 'repo'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id 'thomas.hunziker'
+                            name 'Thomas Hunziker'
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+    signing {
+        required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
+        sign configurations.archives
+    }
+}
+
+
