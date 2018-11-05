@@ -12,7 +12,7 @@ else
   echo "[INFO] The listing of current directory: "
   ls -la; 
   echo "[INFO] Decrypting and importing 'signingkey.gpg.enc'..."
-  openssl aes-256-cbc -K $encrypted_da13544aea09_key -iv $encrypted_da13544aea09_iv -in signingkey.gpg.enc -out signingkey.gpg -d && \
+  openssl aes-256-cbc -K $encrypted_a5db4f26c70d_key -iv $encrypted_a5db4f26c70d_iv -in signingkey.gpg.enc -out signingkey.gpg -d && \
   gpg --fast-import signingkey.gpg;
   echo "[INFO] Exporting secret keys to '${HOME}/.gnupg/secring.gpg'..."
   gpg --export-secret-keys >${HOME}/.gnupg/secring.gpg;
