@@ -34,7 +34,7 @@ public class ShopwareClientTest {
 
 		client.updatePluginVersion(TEST_PLUGIN_ID, v);
 
-		client.pluginVersionStatus(TEST_PLUGIN_ID, v.getId());
+		client.fetchPluginVersionStatus(TEST_PLUGIN_ID, v.getId());
 	}
 
 	private byte[] readFile() {

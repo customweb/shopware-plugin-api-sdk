@@ -67,7 +67,7 @@ public class ShopwarePluginApiClient {
 	 *            plugin id
 	 * @return plugin detais
 	 */
-	public PluginInformation pluginDetails(long pluginId) {
+	public PluginInformation fetchPluginDetails(long pluginId) {
 		return executeRequest(ShopwareEndpoints.PLUGINS + "/" + pluginId, null, PluginInformation.class);
 	}
 
@@ -110,7 +110,7 @@ public class ShopwarePluginApiClient {
 	 *            plugin version id
 	 * @return plugin version information.
 	 */
-	public PluginVersion pluginVersionStatus(long pluginId, long versionId) {
+	public PluginVersion fetchPluginVersionStatus(long pluginId, long versionId) {
 		String url = ShopwareEndpoints.PLUGINS + "/" + pluginId + ShopwareEndpoints.BINARIES + "/" + versionId;
 		return executeRequest(url, null, PluginVersion.class);
 	}
