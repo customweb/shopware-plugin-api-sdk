@@ -30,6 +30,19 @@ allprojects {
     }
 }
 
+
+shopware {
+    lintOptions {
+        disable 'GradleDependency', 'SetJavaScriptEnabled', 'UnusedResources', 'Typos', 'ViewConstructor', 'OldTargetApi'
+        // set to true to turn off analysis progress reporting by lint
+        quiet false
+        // if true, stop the gradle build if errors are found
+        abortOnError true
+        // if true, only report errors
+        ignoreWarnings false
+    }
+}
+
 sourceSets {
     main {
         java {
@@ -129,6 +142,22 @@ afterEvaluate { project ->
     signing {
         required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
         sign configurations.archives
+    }
+    
+
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.java.srcDirs
+    }
+
+    task javadocsJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from javadoc.destinationDir
+    }
+
+    artifacts {
+        archives javadocsJar
+        archives sourcesJar
     }
 }
 
