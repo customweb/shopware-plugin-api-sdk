@@ -123,9 +123,6 @@ class ShopwareHttpUtil {
 		conn.setDoOutput(true);
 		conn.setUseCaches(false);
 		conn.setInstanceFollowRedirects(false);
-		if (token != null) {
-			// add token header
-		}
 		try {
 			conn.setRequestMethod(requestMethod);
 		} catch (ProtocolException exc) {
