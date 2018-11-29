@@ -34,8 +34,7 @@ class ShopwareHttpUtil {
 		try (InputStream is = executeRequestInternal(buildUrl(url), method, sourceData, token)) {
 			return objectMapper.readValue(is, outputType);
 		} catch (IOException exc) {
-			exc.printStackTrace();
-			return null;
+			throw new ShopwarePluginApiException(exc);
 		}
 	}
 
@@ -73,8 +72,7 @@ class ShopwareHttpUtil {
 		try (InputStream is = executeRequestInternal(buildUrl(url), "GET", null, token)) {
 			return objectMapper.readValue(is, outputType);
 		} catch (IOException exc) {
-			exc.printStackTrace();
-			return null;
+			throw new ShopwarePluginApiException(exc);
 		}
 	}
 
@@ -82,8 +80,7 @@ class ShopwareHttpUtil {
 		try (InputStream is = executeRequestInternal(buildUrl(url), "GET", null, token)) {
 			return objectMapper.readValue(is, outputType);
 		} catch (IOException exc) {
-			exc.printStackTrace();
-			return null;
+			throw new ShopwarePluginApiException(exc);
 		}
 	}
 
