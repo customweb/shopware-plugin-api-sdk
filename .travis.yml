@@ -9,6 +9,8 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.m2/repository
 
+services:
+  - docker
 script:
   - ./gradlew test 
   - ./gradlew build
