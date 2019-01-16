@@ -31,6 +31,7 @@ public class AssessmentParsingTest {
 		PluginVersion version = mapper.readValue(input, PluginVersion.class);
 		assertTrue(version.getAssessment().isAssessed());
 		assertEquals(1, version.getAssessment().getFactors().size());
+		new ObjectMapper().writeValueAsString(version);
 	}
 
 	/**
@@ -44,5 +45,6 @@ public class AssessmentParsingTest {
 				.getResourceAsStream("com/customweb/shopware/plugin/api/client/assessment-empty-test.json");
 		PluginVersion version = mapper.readValue(input, PluginVersion.class);
 		assertFalse(version.getAssessment().isAssessed());
+		new ObjectMapper().writeValueAsString(version);
 	}
 }

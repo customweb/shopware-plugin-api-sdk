@@ -24,4 +24,8 @@ public class DateUtil {
 		TemporalAccessor parsed = DATE_FORMATTER.parse(date, new ParsePosition(0));
 		return LocalDateTime.from(parsed);
 	}
+
+	public static String formatDate(LocalDateTime date) {
+		return DATE_FORMATTER.format(date);
+	}
 }

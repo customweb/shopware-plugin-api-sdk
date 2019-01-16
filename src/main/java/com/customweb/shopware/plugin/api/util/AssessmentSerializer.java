@@ -23,9 +23,16 @@ public class AssessmentSerializer extends StdSerializer<Assessment> {
 	@Override
 	public void serialize(Assessment value, JsonGenerator gen, SerializerProvider provider) throws IOException {
 		if (value.isAssessed()) {
-			gen.writeObjectField("assessment", value);
+			gen.writeStartObject();
+			gen.writeNumberField("id", value.getId());
+			gen.writeNumberField("baseValue", value.getBaseValue());
+			gen.writeNumberField("resultValue", value.getResultValue());
+			gen.writeStringField("comments", value.getComment());
+			gen.writeStringField("assessmentDate", DateUtil.formatDate(value.getAssessmentDate()));
+			gen.writeObjectField("factors", value.getFactors());
+			gen.writeEndObject();
 		} else {
-			gen.writeBooleanField("assessment", false);
+			gen.writeBoolean(false);
 		}
 	}
 }
