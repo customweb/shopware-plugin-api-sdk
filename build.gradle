@@ -23,7 +23,7 @@ targetCompatibility = JavaVersion.VERSION_1_8
 
 allprojects {
     group = 'com.customweb'
-    version = '1.0.5'
+    version = '1.0.6'
     repositories {
         jcenter()
         mavenCentral()
