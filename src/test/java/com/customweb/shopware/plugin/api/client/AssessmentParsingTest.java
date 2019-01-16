@@ -9,6 +9,7 @@ import java.io.InputStream;
 import org.junit.Test;
 
 import com.customweb.shopware.plugin.api.model.version.Assessment;
+import com.customweb.shopware.plugin.api.model.version.PluginVersion;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -27,9 +28,9 @@ public class AssessmentParsingTest {
 	public void testObject() throws Exception {
 		InputStream input = getClass().getClassLoader()
 				.getResourceAsStream("com/customweb/shopware/plugin/api/client/assessment-full-test.json");
-		Assessment assessment = mapper.readValue(input, Assessment.class);
-		assertTrue(assessment.isAssessed());
-		assertEquals(1, assessment.getFactors().size());
+		PluginVersion version = mapper.readValue(input, PluginVersion.class);
+		assertTrue(version.getAssessment().isAssessed());
+		assertEquals(1, version.getAssessment().getFactors().size());
 	}
 
 	/**
@@ -41,7 +42,7 @@ public class AssessmentParsingTest {
 	public void testProperty() throws Exception {
 		InputStream input = getClass().getClassLoader()
 				.getResourceAsStream("com/customweb/shopware/plugin/api/client/assessment-empty-test.json");
-		Assessment assessment = mapper.readValue(input, Assessment.class);
-		assertFalse(assessment.isAssessed());
+		PluginVersion version = mapper.readValue(input, PluginVersion.class);
+		assertFalse(version.getAssessment().isAssessed());
 	}
 }

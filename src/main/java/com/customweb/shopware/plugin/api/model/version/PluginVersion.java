@@ -31,7 +31,7 @@ public class PluginVersion {
 	private final LocalDateTime creationDate;
 	private final LocalDateTime lastChangeDate;
 	private final List<Archives> archives;
-	private final boolean assessment;
+	private final Assessment assessment;
 	private final boolean ionCubeEncrypted;
 	private final boolean licenseCheckRequired;
 
@@ -42,7 +42,7 @@ public class PluginVersion {
 			@JsonProperty("compatibleSoftwareVersions") List<SoftwareVersion> compatibleSoftwareVersions,
 			@JsonProperty("changelogs") List<ChangeLog> changeLogs, @JsonProperty("creationDate") String creationDate,
 			@JsonProperty("lastChangeDate") String lastChangeDate, @JsonProperty("archives") List<Archives> archives,
-			@JsonProperty("assessment") boolean assessment, @JsonProperty("ionCubeEncrypted") boolean ionCubeEncrypted,
+			@JsonProperty("assessment") Assessment assessment, @JsonProperty("ionCubeEncrypted") boolean ionCubeEncrypted,
 			@JsonProperty("licenseCheckRequired") boolean licenseCheckRequired) {
 		this.id = id;
 		this.name = name;
@@ -102,7 +102,7 @@ public class PluginVersion {
 		return archives;
 	}
 
-	public boolean isAssessment() {
+	public Assessment getAssessment() {
 		return assessment;
 	}
 

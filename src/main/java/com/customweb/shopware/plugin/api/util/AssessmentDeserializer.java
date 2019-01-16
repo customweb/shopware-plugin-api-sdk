@@ -32,11 +32,10 @@ public class AssessmentDeserializer extends StdDeserializer<Assessment> {
 	@Override
 	public Assessment deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
 		JsonNode root = jp.getCodec().readTree(jp);
-		JsonNode assessment = root.get("assessment");
 
-		if (assessment.size() == 0) {
+		if (root.size() == 0) {
 			// It's not an object, let's try to parse it as boolean.
-			String textVal = assessment.asText();
+			String textVal = root.asText();
 			if (textVal != null && textVal.equalsIgnoreCase("false")) {
 				return new Assessment();
 			} else {
@@ -45,12 +44,12 @@ public class AssessmentDeserializer extends StdDeserializer<Assessment> {
 			}
 		} else {
 			// The value is an object, we can get full data.
-			long id = assessment.get("id").asLong();
-			long baseValue = assessment.get("baseValue").asLong();
-			long resultValue = assessment.get("resultValue").asLong();
-			String comment = assessment.get("comment").asText();
-			String assessmentDate = assessment.get("assessmentDate").asText();
-			List<AssessmentFactor> factors = mapToObject(assessment.get("factors"), new TypeReference<List<AssessmentFactor>>() {
+			long id = root.get("id").asLong();
+			long baseValue = root.get("baseValue").asLong();
+			long resultValue = root.get("resultValue").asLong();
+			String comment = root.get("comment").asText();
+			String assessmentDate = root.get("assessmentDate").asText();
+			List<AssessmentFactor> factors = mapToObject(root.get("factors"), new TypeReference<List<AssessmentFactor>>() {
 			});
 
 			return new Assessment(id, baseValue, resultValue, comment, assessmentDate, factors);
