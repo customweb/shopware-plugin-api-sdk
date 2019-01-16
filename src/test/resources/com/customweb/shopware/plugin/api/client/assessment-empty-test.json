@@ -1,0 +1,120 @@
+{
+"id": 37604,
+"name": "CwbPostFinanceConnectCw",
+"remoteLink": "",
+"version": "5.3.1.0.2",
+"status": {
+"id": 4,
+"name": "codereviewsucceeded",
+"description": "Code review succeeded"
+},
+"compatibleSoftwareVersions": [
+  {
+"id": 93,
+"name": "5.3.0",
+"parent": 94,
+"selectable": true,
+"major": "Shopware 5",
+"releaseDate": null,
+"public": true
+},
+  {
+"id": 98,
+"name": "5.3.1",
+"parent": 94,
+"selectable": true,
+"major": "Shopware 5",
+"releaseDate": null,
+"public": true
+},
+  {
+"id": 99,
+"name": "5.3.2",
+"parent": 94,
+"selectable": true,
+"major": "Shopware 5",
+"releaseDate": null,
+"public": true
+},
+  {
+"id": 100,
+"name": "5.3.3",
+"parent": 94,
+"selectable": true,
+"major": "Shopware 5",
+"releaseDate": null,
+"public": true
+},
+  {
+"id": 101,
+"name": "5.3.4",
+"parent": 94,
+"selectable": true,
+"major": "Shopware 5",
+"releaseDate": null,
+"public": true
+},
+  {
+"id": 102,
+"name": "5.3.5",
+"parent": 94,
+"selectable": true,
+"major": "Shopware 5",
+"releaseDate": {
+"date": "2017-12-04 23:00:00.000000",
+"timezone_type": 3,
+"timezone": "Europe/Berlin"
+},
+"public": true
+},
+  {
+"id": 103,
+"name": "5.3.6",
+"parent": 94,
+"selectable": true,
+"major": "Shopware 5",
+"releaseDate": null,
+"public": true
+},
+  {
+"id": 104,
+"name": "5.3.7",
+"parent": 94,
+"selectable": true,
+"major": "Shopware 5",
+"releaseDate": null,
+"public": true
+}
+],
+"changelogs": [
+  {
+"id": 73621,
+"locale": {
+"id": 1,
+"name": "de_DE"
+},
+"text": "Fixes issue with method migration"
+},
+  {
+"id": 73622,
+"locale": {
+"id": 2,
+"name": "en_GB"
+},
+"text": "Fixes issue with method migration"
+}
+],
+"creationDate": "2019-01-10 16:00:10",
+"lastChangeDate": "2019-01-10 16:00:10",
+"archives": [
+  {
+"id": 98783,
+"remoteLink": "https://sbp-plugin-binaries.s3.eu-west-1.amazonaws.com/8001_1547132410_06d2ca665f405df3392c54bb7092fe7a.zip",
+"shopwareMajorVersion": null,
+"ioncubeEncrypted": false
+}
+],
+"assessment": false,
+"ionCubeEncrypted": false,
+"licenseCheckRequired": false
+}
