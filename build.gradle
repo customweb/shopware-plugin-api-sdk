@@ -18,12 +18,12 @@ buildscript {
     }
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
 
 allprojects {
     group = 'com.customweb'
-    version = '1.0.6'
+    version = '1.0.7'
     repositories {
         jcenter()
         mavenCentral()
