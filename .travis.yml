@@ -3,6 +3,7 @@ jdk:
   - oraclejdk11
 
 sudo: false
+dist: trusty
 
 cache:
   directories:
