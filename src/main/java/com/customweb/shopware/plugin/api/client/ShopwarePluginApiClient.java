@@ -121,9 +121,10 @@ public class ShopwarePluginApiClient {
 	 * @param pluginId
 	 *            plugin id
 	 */
-	public ReviewResponse requestReview(long pluginId) {
+	public List<ReviewResponse> requestReview(long pluginId) {
 		String url = ShopwareEndpoints.PLUGINS + "/" + pluginId + ShopwareEndpoints.REVIEWS;
-		return ShopwareHttpUtil.executeRequest(url, null, ReviewResponse.class, obtainToken(), "POST");
+		return ShopwareHttpUtil.executeRequest(url, null, new TypeReference<List<ReviewResponse>>() {
+		}, obtainToken(), "POST");
 	}
 
 	private String obtainToken() {

@@ -37,6 +37,14 @@ class ShopwareHttpUtil {
 			throw new ShopwarePluginApiException(exc);
 		}
 	}
+	
+	static <T, U> U executeRequest(String url, T sourceData, TypeReference<U> outputType, String token, String method) {
+		try (InputStream is = executeRequestInternal(buildUrl(url), method, sourceData, token)) {
+			return objectMapper.readValue(is, outputType);
+		} catch (IOException exc) {
+			throw new ShopwarePluginApiException(exc);
+		}
+	}
 
 	static <T, U> U executeMultipartRequest(String url, TypeReference<U> outputType, byte[] fileContent, String token) {
 		HttpsURLConnection conn;
