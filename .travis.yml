@@ -5,8 +5,8 @@ jdk:
 sudo: false
 dist: trusty
 
-os:
-  - osx
+os: osx
+osx_image: xcode9.3
 
 cache:
   directories:
