@@ -23,7 +23,7 @@ targetCompatibility = JavaVersion.VERSION_1_8
 
 allprojects {
     group = 'com.customweb'
-    version = '1.0.8'
+    version = '1.0.9'
     repositories {
         jcenter()
         mavenCentral()
@@ -148,5 +148,3 @@ afterEvaluate { project ->
         archives sourcesJar
     }
 }
-
-
