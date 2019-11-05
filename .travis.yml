@@ -5,6 +5,9 @@ jdk:
 sudo: false
 dist: trusty
 
+os:
+  - osx
+
 cache:
   directories:
     - $HOME/.gradle/caches/
